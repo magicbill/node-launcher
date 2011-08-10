@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+	    <launchConfigurationType
+	        name="Node Application"
+	        delegate="org.tp23.eclipse.launching.NodeApplicationLaunchConfigurationDelegate"
+	        modes="run, debug"               
+	        id="org.tp23.eclipse.launching.nodeApplication">        
+	    </launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+	    <launchConfigurationTypeImage
+	        icon="icons/node.png"
+	        configTypeID="org.tp23.eclipse.launching.nodeApplication"
+	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.nodeApplication">
+	    </launchConfigurationTypeImage>
+	</extension>
+
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+	    <launchConfigurationTabGroup
+	        type="org.tp23.eclipse.launching.nodeApplication"
+	        class="org.tp23.eclipse.launching.NodeApplicationTabGroup"
+	        id="org.tp23.eclipse.launching.launchConfigurationTabGroup.nodeApplication">
+	    </launchConfigurationTabGroup>
+	</extension>
+
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+	    <shortcut
+	        id="org.tp23.eclipse.launching.nodeApplicationShortcut"
+	        class="org.tp23.eclipse.launching.NodeApplicationLaunchShortcut"
+	        label="Node Application"
+	        icon="icons/node.png"
+	        category=""
+	        helpContextId="zippo"
+	        path="node"
+	        description="Launch as a node app"
+	        modes="run, debug">
+	       <contextualLaunch>
+	       	 <enablement>
+				<test property="org.tp23.eclipse.launching.LaunchablePropertyTester" value="true" />
+	         </enablement>
+	         <contextLabel mode="run" label="run as node" />
+	         <contextLabel mode="debug" label="debug as node" />
+	       </contextualLaunch>
+	         
+	       <configurationType
+	              id="org.tp23.eclipse.launching.nodeApplication">
+	       </configurationType>
+	       <description
+	              description="Run as node"
+	              mode="run">
+	       </description>
+	       <description
+	              description="Debug as node"
+	              mode="debug">
+	       </description>
+ 
+	    </shortcut>
+	</extension>
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester
+			class="org.tp23.eclipse.launching.LaunchablePropertyTester"
+			id="org.tp23.eclipse.launching.LaunchablePropertyTester" namespace="org.tp23.eclipse.launching"
+			properties="LaunchablePropertyTester" type="java.lang.Object" />
+	</extension>
+ <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          class="org.tp23.eclipse.node.preferences.NodePreferencePage"
+          id="org.tp23.eclipse.node.preferences.NodePreferencePage"
+          name="Node.js">
+    </page>
+ </extension>
+ <extension
+       point="org.eclipse.core.runtime.preferences">
+    <initializer
+          class="org.tp23.eclipse.node.preferences.PreferenceInitializer">
+    </initializer>
+ </extension>
+ <extension
+       point="org.eclipse.ui.preferencePages">
+ </extension>
+
+</plugin>
