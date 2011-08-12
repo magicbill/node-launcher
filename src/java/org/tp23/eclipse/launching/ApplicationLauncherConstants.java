@@ -16,6 +16,10 @@ public class ApplicationLauncherConstants {
 	 */
 	public static final String NODE_LAUNCH_CONFIG_TYPE_ID = "org.tp23.eclipse.launching.nodeApplication";
 	/**
+	 * Matches plugin.xml launchConfigurationType id
+	 */
+	public static final String NODEUNIT_LAUNCH_CONFIG_TYPE_ID = "org.tp23.eclipse.launching.nodeunitApplication";
+	/**
 	 * Matches plugin.xml launchConfigurationType name
 	 */
 	public static final String NODE_LAUNCH_CONFIG_TYPE_NAME = "Node Application";

@@ -44,7 +44,7 @@ public abstract class AbstractApplicationLaunchConfigurationDelegate extends Lau
 		String workspaceLoc = configuration.getAttribute(ApplicationLauncherConstants.ATTR_WORKING_DIRECTORY, ""); // returns ${workspace_loc:bla/blah}
 		String resolved = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(workspaceLoc);
 		if ( "".equals(resolved) ) {
-			pwd = new File(proj.getRawLocation().toPortableString() );
+			pwd = new File(proj.getLocation().toPortableString() );
 		}
 		else {
 			pwd = new File(resolved);

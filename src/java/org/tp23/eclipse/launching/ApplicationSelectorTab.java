@@ -39,7 +39,7 @@ import org.tp23.eclipse.node.preferences.PreferenceConstants;
  */
 public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab implements ILaunchConfigurationTab {
 
-	// UI Texts
+	// UI Texts TODO Label provider
 	private static final String PROJECT = "Project";
 	private static final String NODE_BINARY = "Node Binary";
 	private static final String CHANGE_BINARY = "Change";
@@ -54,7 +54,6 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 	private Button fProjButton;
 	protected Text fAppText;
 	private Button fAppButton;
-	protected Text fPortText;
 	private WorkingDirectoryBlock workingDirBlock;
 	
 	private WidgetListener fListener = new WidgetListener();
@@ -68,8 +67,6 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 		createProjectEditor(comp);
 		createVerticalSpacer(comp, 1);
 		createMainTypeEditor(comp);
-		createVerticalSpacer(comp, 1);
-		createPortEditor(comp);
 		createVerticalSpacer(comp, 1);
 		createPwdEditor(comp);
 		setControl(comp);
@@ -91,7 +88,6 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 		updateMainTypeFromConfig(config);
 		updateProjectNameFromConfig(config);
 		updateApplicationFromConfig(config);
-		updatePortFromConfig(config);
 		workingDirBlock.initializeFrom(config);
 	}
 
@@ -100,7 +96,6 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 		config.setAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, fAppText.getText().trim());
 		config.setAttribute(ApplicationLauncherConstants.ATTR_PROJECT_NAME, fProjText.getText().trim());
         config.setAttribute(ApplicationLauncherConstants.ATTR_MAIN_TYPE_NAME, fMainText.getText().trim());
-        config.setAttribute(ApplicationLauncherConstants.ATTR_NODE_DEBUG_PORT, fPortText.getText().trim());
         workingDirBlock.performApply(config);
 	}
 
@@ -159,26 +154,6 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 		fAppButton = createPushButton(group, CHANGE_BINARY, null);
 		fAppButton.addSelectionListener(fListener);
 	}
-
-
-	protected void createPortEditor(Composite parent) {
-		Font font = parent.getFont();
-		
-		Group group = new Group(parent, SWT.NONE);
-		group.setText("Debug Port");
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		group.setLayoutData(gd);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		group.setLayout(layout);
-		group.setFont(font);
-		fPortText = new Text(group, SWT.SINGLE | SWT.BORDER);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		fPortText.setLayoutData(gd);
-		fPortText.setFont(font);
-		fPortText.addModifyListener(fListener);
-	}
-
 
 	protected void createPwdEditor(Composite parent) {
 		workingDirBlock = new WorkingDirectoryBlock(ApplicationLauncherConstants.ATTR_WORKING_DIRECTORY) {
@@ -244,15 +219,7 @@ public class ApplicationSelectorTab extends AbstractLaunchConfigurationTab imple
 		}
 		fProjText.setText(projectName);
 	}
-	protected void updatePortFromConfig(ILaunchConfiguration config) {
-		String debugPort = "";
-		try {
-			debugPort = config.getAttribute(ApplicationLauncherConstants.ATTR_NODE_DEBUG_PORT, "");
-		} catch (CoreException ce) {
-			JDIDebugUIPlugin.log(ce);
-		}
-		fPortText.setText(debugPort);
-	}
+
 	protected void updatePwdFromConfig(ILaunchConfiguration config) {
 		String pwd = "";
 		try {

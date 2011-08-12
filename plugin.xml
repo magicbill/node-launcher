@@ -9,6 +9,12 @@
 	        modes="run, debug"               
 	        id="org.tp23.eclipse.launching.nodeApplication">        
 	    </launchConfigurationType>
+	    <launchConfigurationType
+	        name="Nodeunit Application"
+	        delegate="org.tp23.eclipse.launching.NodeunitApplicationLaunchConfigurationDelegate"
+	        modes="run, debug"               
+	        id="org.tp23.eclipse.launching.nodeunitApplication">        
+	    </launchConfigurationType>
 	</extension>
 	
 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
@@ -17,6 +23,11 @@
 	        configTypeID="org.tp23.eclipse.launching.nodeApplication"
 	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.nodeApplication">
 	    </launchConfigurationTypeImage>
+	    <launchConfigurationTypeImage
+	        icon="icons/nodeunit.png"
+	        configTypeID="org.tp23.eclipse.launching.nodeunitApplication"
+	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.nodeunitApplication">
+	    </launchConfigurationTypeImage>
 	</extension>
 
 	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
@@ -24,6 +35,11 @@
 	        type="org.tp23.eclipse.launching.nodeApplication"
 	        class="org.tp23.eclipse.launching.NodeApplicationTabGroup"
 	        id="org.tp23.eclipse.launching.launchConfigurationTabGroup.nodeApplication">
+	    </launchConfigurationTabGroup>
+	    <launchConfigurationTabGroup
+	        type="org.tp23.eclipse.launching.nodeunitApplication"
+	        class="org.tp23.eclipse.launching.NodeunitApplicationTabGroup"
+	        id="org.tp23.eclipse.launching.launchConfigurationTabGroup.nodeunitApplication">
 	    </launchConfigurationTabGroup>
 	</extension>
 
@@ -42,23 +58,56 @@
 	       	 <enablement>
 				<test property="org.tp23.eclipse.launching.LaunchablePropertyTester" value="true" />
 	         </enablement>
-	         <contextLabel mode="run" label="run as node" />
-	         <contextLabel mode="debug" label="debug as node" />
+	         <contextLabel mode="run" label="node application" />
+	         <contextLabel mode="debug" label="node application" />
 	       </contextualLaunch>
 	         
 	       <configurationType
 	              id="org.tp23.eclipse.launching.nodeApplication">
 	       </configurationType>
 	       <description
-	              description="Run as node"
+	              description="node applicaiton"
 	              mode="run">
 	       </description>
 	       <description
-	              description="Debug as node"
+	              description="node application"
 	              mode="debug">
 	       </description>
  
 	    </shortcut>
+	    
+	    <shortcut
+	        id="org.tp23.eclipse.launching.nodeunitApplicationShortcut"
+	        class="org.tp23.eclipse.launching.NodeunitApplicationLaunchShortcut"
+	        label="Nodeunit Application"
+	        icon="icons/nodeunit.png"
+	        category=""
+	        helpContextId="zippo"
+	        path="node"
+	        description="Launch as nodeunit"
+	        modes="run, debug">
+	       <contextualLaunch>
+	       	 <enablement>
+				<test property="org.tp23.eclipse.launching.LaunchablePropertyTester" value="true" />
+	         </enablement>
+	         <contextLabel mode="run" label="nodeunit test" />
+	         <contextLabel mode="debug" label="nodeunit test" />
+	       </contextualLaunch>
+	         
+	       <configurationType
+	              id="org.tp23.eclipse.launching.nodeunitApplication">
+	       </configurationType>
+	       <description
+	              description="nodeunit test"
+	              mode="run">
+	       </description>
+	       <description
+	              description="nodeunit test"
+	              mode="debug">
+	       </description>
+ 
+	    </shortcut>
+	    
 	</extension>
 	<extension point="org.eclipse.core.expressions.propertyTesters">
 		<propertyTester
@@ -66,22 +115,118 @@
 			id="org.tp23.eclipse.launching.LaunchablePropertyTester" namespace="org.tp23.eclipse.launching"
 			properties="LaunchablePropertyTester" type="java.lang.Object" />
 	</extension>
- <extension
-       point="org.eclipse.ui.preferencePages">
-    <page
-          class="org.tp23.eclipse.node.preferences.NodePreferencePage"
-          id="org.tp23.eclipse.node.preferences.NodePreferencePage"
-          name="Node.js">
-    </page>
- </extension>
- <extension
-       point="org.eclipse.core.runtime.preferences">
-    <initializer
-          class="org.tp23.eclipse.node.preferences.PreferenceInitializer">
-    </initializer>
- </extension>
- <extension
-       point="org.eclipse.ui.preferencePages">
- </extension>
+	
+	 <extension
+	       point="org.eclipse.ui.preferencePages">
+	    <page
+	          class="org.tp23.eclipse.node.preferences.NodePreferencePage"
+	          id="org.tp23.eclipse.node.preferences.NodePreferencePage"
+	          name="Node.js">
+	    </page>
+	 </extension>
+	 <extension
+	       point="org.eclipse.core.runtime.preferences">
+	    <initializer
+	          class="org.tp23.eclipse.node.preferences.PreferenceInitializer">
+	    </initializer>
+	 </extension>
+	 <extension
+	       point="org.eclipse.ui.preferencePages">
+	 </extension>
 
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="NPM Actions"
+            visible="true"
+            id="org.tp23.eclipse.npm.actionSet">
+         <menu
+               label="&amp;npm"
+               id="npmMenu">
+            <separator
+                  name="npmGroup">
+            </separator>
+         </menu>
+         <!-- Actions seem to load in reverse order ?-->
+         <action
+               label="&amp;Install Dom"
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.InstallDomAction"
+               tooltip="npm install dom-js"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.InstallDomAction">
+         </action>
+         <action
+               label="&amp;Install Sax"
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.InstallSaxAction"
+               tooltip="npm install sax"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.InstallSaxAction">
+         </action>
+         <action
+               label="&amp;Install Nodeunit"
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.InstallNodeunitAction"
+               tooltip="npm install sax"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.InstallNodeunitAction">
+         </action>
+         <action
+               label="&amp;Install ..."
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.InstallAction"
+               tooltip="npm install [package]"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.InstallAction">
+         </action>
+         <action
+               label="&amp;Create modules project"
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.CreateModulesProjectAction"
+               tooltip="Create node_modules project for workspace local npm packages"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.CreateModulesProjectAction">
+         </action>
+         <!--action
+               label="&amp;Search"
+               icon="icons/npm.png"
+               class="org.tp23.eclipse.npm.SearchAction"
+               tooltip="ls npm packages"
+               menubarPath="npmMenu/npmGroup"
+               toolbarPath="npmGroup"
+               id="org.tp23.eclipse.npm.SearchAction">
+         </action-->
+
+
+      </actionSet>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.tp23.eclipse.npm.publish.contribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="org.tp23.eclipse.npm.publish.menu"
+               label="npm"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.tp23.eclipse.npm.PublishAction"
+               enablesFor="1"
+               id="org.tp23.eclipse.npm.publishAction"
+               label="publish"
+               menubarPath="org.tp23.eclipse.npm.publish.menu/group1">
+         </action>
+      </objectContribution>
+   </extension>
 </plugin>

@@ -39,7 +39,9 @@ public class NodePreferencePage
 		addField(
 			new StringFieldEditor(PreferenceConstants.NODE_PATH, "Default node path", getFieldEditorParent()));
 		addField(
-				new StringFieldEditor(PreferenceConstants.NPM_PATH, "Npm path", getFieldEditorParent()));
+			new StringFieldEditor(PreferenceConstants.NPM_PATH, "Npm path", getFieldEditorParent()));
+		addField(
+				new StringFieldEditor(PreferenceConstants.NODEUNIT_PATH, "Nodeunit path", getFieldEditorParent()));
 	}
 
 	public void init(IWorkbench workbench) {

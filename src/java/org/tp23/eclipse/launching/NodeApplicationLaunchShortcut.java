@@ -27,6 +27,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.tp23.eclipse.node.preferences.PreferenceConstants;
 
 public class NodeApplicationLaunchShortcut implements ILaunchShortcut, org.eclipse.debug.ui.actions.ILaunchable, ILaunchShortcut2 {
 
@@ -42,7 +43,8 @@ public class NodeApplicationLaunchShortcut implements ILaunchShortcut, org.eclip
 			path = path.substring(("/"+projectName+"/").length());
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_MAIN_TYPE_NAME, path);
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_PROJECT_NAME, projectName);
-			wc.setAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, "/usr/local/bin/node");
+			String nodePath = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.NODE_PATH);
+			wc.setAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, nodePath);
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_NODE_DEBUG_PORT, "8888");
 
 			// CONTEXTLAUNCHING

@@ -1,18 +1,11 @@
 <?xml version="1.0"?>
-
-<project name="build_farm Web Build: node-launcher"  default="compile"  basedir=".">
+<!--
+This is a build_farm LIB build
+-->
+<project name="build_farm Lib Build: node-launcher"  default="prepare"  basedir=".">
 
 	<property environment="env" />
 	<property name="master.project.dir" value="${projects.dir}/node-launcher" />
-	<!-- leave blank in replace.[instance].properties for this default -->
-	<property name="appName" value="node-launcher (version ${node-launcher.version})"/>
-	
-	<!--path id="taskdef.cp" path="${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-ext.jar:${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-installer.jar"/>
-	<taskdef  name="installer" 
-		classname="org.tp23.antinstaller.taskdefs.Installer"
-		classpathref="taskdef.cp"/-->
-
-
 
 	<fileset id="buildonly.class.path"
 		 dir="${dependencies.dir}">
@@ -21,9 +14,9 @@
 		</patternset>
 	</fileset>
 	<fileset id="public.dep.class.path"
-		dir="${dependencies.dir}">
+		dir="${dependencies.dir}/">
 		<patternset>
-			<include name="eclipse/jars/-${wem.version}.jar" />
+			<include name="eclipse/jars/helios/*.jar" />
 		</patternset>
 	</fileset>
 	<!-- todo GUMPify -->
@@ -42,22 +35,8 @@
 		<fileset refid="public.dep.class.path"/>
 		<fileset refid="tp23.dep.class.path"/>
 	</path>
-
-
-	<!-- Build code -->
-	<target name="compile">
-		<mkdir dir="${prepare.dir}/node-launcher/classes"/>
-		<javac destdir="${prepare.dir}/node-launcher/classes" 
-				srcdir="${master.project.dir}/src/java"
-				target="1.6"
-				source="1.6">
-			<classpath refid="project.class.path"/>
-		</javac>
-	</target>
 	
-	<target name="deploy-www"     depends="prepare, configure, jar, copy"/>
-	<target name="deploy-publish" depends="prepare, configure, jar"/>
-	<target name="deploy-netbox"  depends="prepare, configure, jar"/>
+	<target name="deploy-lib"  depends="prepare, configure, jar, copy"/>
 
 	<target name="prepare">
 		<echo message="Build dir:${prepare.dir}"/>
@@ -72,25 +51,18 @@
 
 
 	<target name="configure">
-		<echo message="basedir: ${basedir}"/>
-    	<echo message="master.project.dir: ${master.project.dir}"/>
-		
-		<antcall target="conditional-${Optional}"/>
-
-	</target>
-
-	<target name="conditional-"/>
-
-	<target name="conditional-Optional">
-		<echo message="Conditional replace"/>
 	</target>
 	
 
 	<target name="jar">
-		<delete file="${prepare.dir}/node-launcher/${jar.name}.jar"/>
+		<delete file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.0.jar"/>
 		<jar
-			destfile="${prepare.dir}/node-launcher/${jar.name}.ja"
+			destfile="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.0.jar"
 			manifest="${master.project.dir}/META-INF/MANIFEST.MF">
+			<fileset dir="${prepare.dir}/node-launcher/classes">
+				<include name="**/*.class"/>
+				<include name="resources/*"/>
+			</fileset>
 			<fileset dir="${prepare.dir}/node-launcher/plugin">
 				<include name="**/*"/>
 			</fileset>
