@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build_farm-project>
+  <downloadURL>http://code.abnoctus.com/farmweb/page/static/node-launcher/code/binaries</downloadURL>
+  <homeURL>http://code.abnoctus.com/farmweb/page/static/node-launcher/home/</homeURL>
+  <java2htmlURL>http://code.abnoctus.com/publish/Java2HTML/node-launcher/index.html</java2htmlURL>
+  <javaDocURL>http://code.abnoctus.com/publish/JavaDoc/node-launcher/index.html</javaDocURL>
+  <svnURL>https://svn.abnoctus.com:8043/repos/svnroot/node-launcher</svnURL>
+  <codeRenderURL>http://code.abnoctus.com/publish/Java2HTML/node-launcher/index.html</codeRenderURL>
+  <downloadSourceURL>http://code.abnoctus.com/publish/sources/node-launcher/</downloadSourceURL>
+  <status>new</status>
+  <version>0.1</version>
+  <description>
+  	Eclipse plugins for node.js so launching JS can be performed in the IDE with node, and 
+  	setting debug ports for graphical debugging in the IDE, plus a bit of npm and node unit integration
+  </description>
+  <language>Java</language>
+  <title>node-launcher</title>
+  <operations>
+    <operation class="org.tp23.farmweb.bean.BuildOperation" name="build: netbox cvs" instance="netbox" type="cvs" javaHome="/usr/local/java_versions/jdk6" />
+  </operations>
+</build_farm-project>
+
