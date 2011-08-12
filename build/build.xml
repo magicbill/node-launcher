@@ -1,11 +1,122 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project default="plugin_export" name="build">
-	<target name="plugin_export">
-		<pde.exportPlugins 
-			destination="/home/teknopaul/dev-prepare/node-launcher" 
-			exportSource="true" 
-			exportType="directory" 
-			plugins="org.tp23.eclipse.launcher.node" 
-			useJARFormat="true"/>
+<?xml version="1.0"?>
+
+<project name="build_farm Web Build: node-launcher"  default="compile"  basedir=".">
+
+	<property environment="env" />
+	<property name="master.project.dir" value="${projects.dir}/node-launcher" />
+	<!-- leave blank in replace.[instance].properties for this default -->
+	<property name="appName" value="model3-wiki (version ${node-launcher.version})"/>
+	
+	<!--path id="taskdef.cp" path="${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-ext.jar:${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-installer.jar"/>
+	<taskdef  name="installer" 
+		classname="org.tp23.antinstaller.taskdefs.Installer"
+		classpathref="taskdef.cp"/-->
+
+
+
+	<fileset id="buildonly.class.path"
+		 dir="${dependencies.dir}">
+		<patternset>
+			<include name="junit/jars/junit-${junit.version}.jar"/>
+		</patternset>
+	</fileset>
+	<fileset id="public.dep.class.path"
+		dir="${dependencies.dir}">
+		<patternset>
+			<include name="eclipse/jars/-${wem.version}.jar" />
+		</patternset>
+	</fileset>
+	<!-- todo GUMPify -->
+	<fileset id="tp23.dep.class.path" 
+		dir="${master.project.dir}/lib">
+		<include name="*.jar"/>
+		<exclude name="antinstaller/**/*"/>
+	</fileset>
+
+	<path id="project.class.path">
+		<fileset refid="buildonly.class.path"/>
+		<fileset refid="public.dep.class.path"/>
+		<fileset refid="tp23.dep.class.path"/>
+	</path>
+	<path id="lib.class.path">
+		<fileset refid="public.dep.class.path"/>
+		<fileset refid="tp23.dep.class.path"/>
+	</path>
+
+
+	<!-- Build code -->
+	<target name="compile">
+		<mkdir dir="${prepare.dir}/node-launcher/classes"/>
+		<javac destdir="${prepare.dir}/node-launcher/classes" 
+				srcdir="${master.project.dir}/src/java"
+				target="1.6"
+				source="1.6">
+			<classpath refid="project.class.path"/>
+		</javac>
 	</target>
+	
+	<target name="deploy-www"     depends="prepare, configure, jar, copy"/>
+	<target name="deploy-publish" depends="prepare, configure, jar"/>
+	<target name="deploy-netbox"  depends="prepare, configure, jar"/>
+
+	<target name="prepare">
+		<echo message="Build dir:${prepare.dir}"/>
+		<echo message="Project dir:${master.project.dir}"/>
+		<copy todir="${prepare.dir}/node-launcher/plugin">
+		  <fileset dir="${master.project.dir}/">
+			<include name="**/*"/>
+		  </fileset>
+		</copy>
+	</target>
+
+
+	<target name="configure">
+		<echo message="basedir: ${basedir}"/>
+    	<echo message="master.project.dir: ${master.project.dir}"/>
+		
+		<antcall target="conditional-${Optional}"/>
+
+	</target>
+
+	<target name="conditional-"/>
+
+	<target name="conditional-Optional">
+		<echo message="Conditional replace"/>
+	</target>
+	
+
+	<target name="jar">
+		<delete file="${prepare.dir}/node-launcher/${jar.name}.jar"/>
+		<!-- Servlets 3.0 version -->
+		<jar
+			destfile="${prepare.dir}/node-launcher/${jar.name}.ja">
+			<fileset dir="${prepare.dir}/node-launcher/plugin">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+		<!-- Servlets 2.x version -->
+		<jar
+			destfile="${prepare.dir}/model3-wiki/${war.name}-servlets2.war">
+			<fileset dir="${prepare.dir}/model3-wiki/web">
+				<exclude name="**/model3-servlets3-${model3servlets3.version}.jar"/>
+				<exclude name="**/CVS/*"/>
+				<exclude name="WEB-INF/web.xml"/>
+			</fileset>
+			<zipfileset 
+				dir="${master.project.dir}/web/WEB-INF"
+				includes="web.servlets2.xml" 
+				fullpath="WEB-INF/web.xml"/>
+		</jar>
+	</target>
+
+	<target name="copy">
+		<unjar
+			  src="${prepare.dir}/model3-wiki/${war.name}-servlets3.war"
+			  dest="${deploy.dir}/${war.name}-servlets3"
+			  overwrite="yes"
+			  />		
+	</target>
+
+
+
 </project>
