@@ -19,12 +19,12 @@
 	
 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
 	    <launchConfigurationTypeImage
-	        icon="icons/node.png"
+	        icon="icons/node16.png"
 	        configTypeID="org.tp23.eclipse.launching.nodeApplication"
 	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.nodeApplication">
 	    </launchConfigurationTypeImage>
 	    <launchConfigurationTypeImage
-	        icon="icons/nodeunit.png"
+	        icon="icons/nodeunit16.png"
 	        configTypeID="org.tp23.eclipse.launching.nodeunitApplication"
 	        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.nodeunitApplication">
 	    </launchConfigurationTypeImage>
@@ -48,7 +48,7 @@
 	        id="org.tp23.eclipse.launching.nodeApplicationShortcut"
 	        class="org.tp23.eclipse.launching.NodeApplicationLaunchShortcut"
 	        label="Node Application"
-	        icon="icons/node.png"
+	        icon="icons/node16.png"
 	        category=""
 	        helpContextId="zippo"
 	        path="node"
@@ -80,7 +80,7 @@
 	        id="org.tp23.eclipse.launching.nodeunitApplicationShortcut"
 	        class="org.tp23.eclipse.launching.NodeunitApplicationLaunchShortcut"
 	        label="Nodeunit Application"
-	        icon="icons/nodeunit.png"
+	        icon="icons/nodeunit16.png"
 	        category=""
 	        helpContextId="zippo"
 	        path="node"
@@ -150,7 +150,7 @@
          <!-- Actions seem to load in reverse order ?-->
          <action
                label="&amp;Install Dom"
-               icon="icons/npm.png"
+               icon="icons/npm16.png"
                class="org.tp23.eclipse.npm.InstallDomAction"
                tooltip="npm install dom-js"
                menubarPath="npmMenu/npmGroup"
@@ -159,7 +159,7 @@
          </action>
          <action
                label="&amp;Install Sax"
-               icon="icons/npm.png"
+               icon="icons/npm16.png"
                class="org.tp23.eclipse.npm.InstallSaxAction"
                tooltip="npm install sax"
                menubarPath="npmMenu/npmGroup"
@@ -168,7 +168,7 @@
          </action>
          <action
                label="&amp;Install Nodeunit"
-               icon="icons/npm.png"
+               icon="icons/npm16.png"
                class="org.tp23.eclipse.npm.InstallNodeunitAction"
                tooltip="npm install sax"
                menubarPath="npmMenu/npmGroup"
@@ -177,7 +177,7 @@
          </action>
          <action
                label="&amp;Install ..."
-               icon="icons/npm.png"
+               icon="icons/npm16.png"
                class="org.tp23.eclipse.npm.InstallAction"
                tooltip="npm install [package]"
                menubarPath="npmMenu/npmGroup"
@@ -186,7 +186,7 @@
          </action>
          <action
                label="&amp;Create modules project"
-               icon="icons/npm.png"
+               icon="icons/npm16.png"
                class="org.tp23.eclipse.npm.CreateModulesProjectAction"
                tooltip="Create node_modules project for workspace local npm packages"
                menubarPath="npmMenu/npmGroup"
@@ -235,8 +235,37 @@
       <view
             name="Nodeunit"
             class="org.tp23.eclipse.nodeunit.NodeunitResultsView"
-            id="org.tp23.eclipse.nodeunit.view">
+            id="org.tp23.eclipse.nodeunit.view"
+            icon="icons/nodeunit16.png">
       </view>
    </extension>
    
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.tp23.eclipse.node.category"
+            name="Node">
+      </category>
+      <wizard
+            category="org.tp23.eclipse.node.category"
+            class="org.tp23.eclipse.nodeunit.NewNodeunitWizard"
+            icon="icons/nodeunit16.png"
+            id="org.tp23.eclipse.nodeunit.NewNodeunitWizard"
+            name="nodeunit">
+         <description>
+            Create a new nodeunit test.
+         </description>
+      </wizard>
+      <wizard
+            category="org.tp23.eclipse.node.category"
+            class="org.tp23.eclipse.node.HelloworldWizard"
+            icon="icons/node16.png"
+            id="org.tp23.eclipse.nodeunit.HelloworldWizard"
+            name="helloworld">
+         <description>
+            Create a classic hello world server.
+         </description>
+      </wizard>
+   </extension>
+      
 </plugin>

@@ -26,12 +26,30 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 public class Util {
 
 	public static Shell getShell() {
 		return PlatformUI.getWorkbench().getDisplay().getShells()[0];
+	}
+	
+	public static void showNodeunitView() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		final Display display = workbench.getDisplay();
+		display.asyncExec(
+				  new Runnable() {
+				    public void run(){
+				    	try {
+							workbench.getActiveWorkbenchWindow().getActivePage()
+								.showView(ApplicationLauncherConstants.NODEUNIT_VIEW_ID);
+						} catch (PartInitException e) {
+							
+						}
+				    }
+				  }
+		);
 	}
 
 	public static void errorMessage(final String message) {

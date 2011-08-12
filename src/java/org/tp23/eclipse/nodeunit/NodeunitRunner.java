@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -17,6 +18,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.IViewDescriptor;
 import org.tp23.eclipse.launching.ApplicationLauncherConstants;
+import org.tp23.eclipse.launching.Util;
 
 public class NodeunitRunner {
 
@@ -25,8 +27,8 @@ public class NodeunitRunner {
 		try {
 			NodeunitResultsView view = getView();
 			if (view != null) {
+				Util.showNodeunitView();
 				view.clearResults();
-				InputStream err;
 				final CloningInputStream out = new CloningInputStream(p.getInputStream());
 				Process cloner = new Process() {
 					@Override
@@ -69,11 +71,22 @@ public class NodeunitRunner {
 		
 		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
 		for (int i = 0; i < windows.length; i++) {
-			IWorkbenchPage[] pages = windows[i].getPages();
+			final IWorkbenchPage[] pages = windows[i].getPages();
 			for (int j = 0; j < pages.length; j++) {
-				IViewPart nodeUnitview = pages[j].findView(ApplicationLauncherConstants.NODEUNIT_VIEW_ID);
-				if (nodeUnitview != null) {
-					return (NodeunitResultsView)nodeUnitview;
+				final Display display = workbench.getDisplay();
+				final NodeunitResultsView[] pointer = new NodeunitResultsView[1]; 
+				final int p = j;
+				display.syncExec(
+					new Runnable() {
+					    public void run(){
+							IViewPart nodeUnitview = pages[p].findView(ApplicationLauncherConstants.NODEUNIT_VIEW_ID);
+							if (nodeUnitview != null) {
+								pointer[0] = (NodeunitResultsView)nodeUnitview;
+							}
+					    }
+					});
+				if (pointer[0] != null) {
+					return pointer[0]; 
 				}
 			}
 		}

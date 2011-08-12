@@ -1,12 +1,19 @@
 package org.tp23.eclipse.nodeunit;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuCreator;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -17,12 +24,20 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchImages;
+import org.eclipse.ui.internal.progress.FinishedJobs;
+import org.eclipse.ui.internal.progress.ProgressMessages;
+import org.eclipse.ui.part.IPage;
+import org.eclipse.ui.part.PageBook;
+import org.eclipse.ui.part.PageBookView;
 import org.eclipse.ui.part.ViewPart;
 
-public class NodeunitResultsView extends ViewPart {
+public class NodeunitResultsView extends PageBookView implements IPage {// extends ViewPart {
 	
 	public static final String ID = "org.tp23.eclipse.nodeunit.view";
 
@@ -98,8 +113,9 @@ public class NodeunitResultsView extends ViewPart {
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		// Provide the input to the ContentProvider
-		viewer.setInput(new TestResult[]{new TestResult(true, "not executted")});
-		// TODO never fired addMenu(viewer.getControl());
+		viewer.setInput(new TestResult[]{new TestResult(true, "not executed")});
+		initPulldownMenu();
+		//addMenu(viewer.getControl());
 	}
 
 	
@@ -162,6 +178,92 @@ public class NodeunitResultsView extends ViewPart {
 			    clearItem.setMenu(newMenu);
 			}
 	    });
+    }
+
+
+	@Override
+	protected IPage createDefaultPage(PageBook pageBook) {
+		createControl(pageBook);
+		return this;
+	}
+
+
+	@Override
+	protected PageRec doCreatePage(IWorkbenchPart arg0) {
+		return null;
+	}
+
+
+	@Override
+	protected void doDestroyPage(IWorkbenchPart arg0, PageRec arg1) {
+		
+	}
+
+
+	@Override
+	protected IWorkbenchPart getBootstrapPart() {
+		return null;
+	}
+
+
+	@Override
+	protected boolean isImportant(IWorkbenchPart arg0) {
+		return false;
+	}
+
+
+	@Override
+	public void createControl(Composite parent) {
+		this.createPartControl(parent);
+	}
+
+
+	@Override
+	public Control getControl() {
+		return viewer.getControl();
+	}
+
+
+	@Override
+	public void setActionBars(IActionBars actionBars) {
+	}
+	
+	Action clearAllAction;
+
+
+	private void initPulldownMenu() {
+		createClearAllAction();
+        IMenuManager menuMgr = getViewSite().getActionBars()
+                .getMenuManager();
+        menuMgr.add(clearAllAction);
+    }
+
+    /**
+     * Create the clear all action for the receiver.
+     */
+    private void createClearAllAction() {
+        clearAllAction = new Action("Clear results") {
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.jface.action.Action#run()
+             */
+            public void run() {
+                NodeunitResultsView.this.clearResults();
+            }
+        };
+        clearAllAction
+                .setToolTipText(ProgressMessages.NewProgressView_RemoveAllJobsToolTip);
+        ImageDescriptor id = WorkbenchImages
+                .getWorkbenchImageDescriptor("/elcl16/progress_remall.gif"); //$NON-NLS-1$
+        if (id != null) {
+            clearAllAction.setImageDescriptor(id);
+        }
+        id = WorkbenchImages
+                .getWorkbenchImageDescriptor("/dlcl16/progress_remall.gif"); //$NON-NLS-1$
+        if (id != null) {
+            clearAllAction.setDisabledImageDescriptor(id);
+        }
     }
 
 }
