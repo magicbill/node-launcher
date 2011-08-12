@@ -5,7 +5,7 @@
 	<property environment="env" />
 	<property name="master.project.dir" value="${projects.dir}/node-launcher" />
 	<!-- leave blank in replace.[instance].properties for this default -->
-	<property name="appName" value="model3-wiki (version ${node-launcher.version})"/>
+	<property name="appName" value="node-launcher (version ${node-launcher.version})"/>
 	
 	<!--path id="taskdef.cp" path="${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-ext.jar:${dependencies.dir}/antinstaller-${antinstaller.version}/lib/ant-installer.jar"/>
 	<taskdef  name="installer" 
@@ -64,7 +64,8 @@
 		<echo message="Project dir:${master.project.dir}"/>
 		<copy todir="${prepare.dir}/node-launcher/plugin">
 		  <fileset dir="${master.project.dir}/">
-			<include name="**/*"/>
+			<include name="plugin.xml"/>
+			<include name="icons/**/*"/>
 		  </fileset>
 		</copy>
 	</target>
@@ -87,34 +88,16 @@
 
 	<target name="jar">
 		<delete file="${prepare.dir}/node-launcher/${jar.name}.jar"/>
-		<!-- Servlets 3.0 version -->
 		<jar
-			destfile="${prepare.dir}/node-launcher/${jar.name}.ja">
+			destfile="${prepare.dir}/node-launcher/${jar.name}.ja"
+			manifest="${master.project.dir}/META-INF/MANIFEST.MF">
 			<fileset dir="${prepare.dir}/node-launcher/plugin">
 				<include name="**/*"/>
 			</fileset>
 		</jar>
-		<!-- Servlets 2.x version -->
-		<jar
-			destfile="${prepare.dir}/model3-wiki/${war.name}-servlets2.war">
-			<fileset dir="${prepare.dir}/model3-wiki/web">
-				<exclude name="**/model3-servlets3-${model3servlets3.version}.jar"/>
-				<exclude name="**/CVS/*"/>
-				<exclude name="WEB-INF/web.xml"/>
-			</fileset>
-			<zipfileset 
-				dir="${master.project.dir}/web/WEB-INF"
-				includes="web.servlets2.xml" 
-				fullpath="WEB-INF/web.xml"/>
-		</jar>
 	</target>
 
 	<target name="copy">
-		<unjar
-			  src="${prepare.dir}/model3-wiki/${war.name}-servlets3.war"
-			  dest="${deploy.dir}/${war.name}-servlets3"
-			  overwrite="yes"
-			  />		
 	</target>
 
 
