@@ -70,10 +70,10 @@ This is a build_farm LIB build
 	</target>
 
 	<target name="copy">
-		<echo message="Publishing to ${publish.dir}"/>
-		<mkdir dir="${publish.dir}" />
+		<echo message="Publishing to ${publish.dir}/node-launcher"/>
+		<mkdir dir="${publish.dir}/node-launcher" />
 		<copy file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.0.jar"
-			todir="${publish.dir}"/>
+			todir="${publish.dir}/node-launcher"/>
 	</target>
 
 
