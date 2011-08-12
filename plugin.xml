@@ -229,4 +229,14 @@
          </action>
       </objectContribution>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Nodeunit"
+            class="org.tp23.eclipse.nodeunit.NodeunitResultsView"
+            id="org.tp23.eclipse.nodeunit.view">
+      </view>
+   </extension>
+   
 </plugin>

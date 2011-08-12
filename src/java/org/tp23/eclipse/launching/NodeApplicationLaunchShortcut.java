@@ -1,5 +1,6 @@
 package org.tp23.eclipse.launching;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,12 @@ public class NodeApplicationLaunchShortcut implements ILaunchShortcut, org.eclip
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_MAIN_TYPE_NAME, path);
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_PROJECT_NAME, projectName);
 			String nodePath = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.NODE_PATH);
+			if ( ! new File(nodePath).exists()) {
+				Util.errorMessage(
+						"Node not found, " + nodePath + "\n" +
+						"The default location for node\n" +
+						"can be set in preferences");
+			}
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, nodePath);
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_NODE_DEBUG_PORT, "8888");
 

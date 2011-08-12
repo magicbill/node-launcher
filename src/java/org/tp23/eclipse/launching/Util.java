@@ -30,6 +30,9 @@ import org.eclipse.ui.PlatformUI;
 
 public class Util {
 
+	public static Shell getShell() {
+		return PlatformUI.getWorkbench().getDisplay().getShells()[0];
+	}
 
 	public static void errorMessage(final String message) {
 		IWorkbench workbench = PlatformUI.getWorkbench();

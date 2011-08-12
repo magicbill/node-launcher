@@ -34,6 +34,8 @@ import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.actions.ILaunchable;
 import org.eclipse.jdt.internal.debug.ui.JDIDebugUIPlugin;
 import org.eclipse.jdt.launching.SocketUtil;
+import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
+import org.tp23.eclipse.nodeunit.NodeunitRunner;
 
 /**
  * Launches nodeunit and passes eh script as a praramter
@@ -58,6 +60,13 @@ public class NodeunitApplicationLaunchConfigurationDelegate extends AbstractAppl
 		
 		// get the nodeunit binary , already absolute path
 		String binary = configuration.getAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, "");
+		
+		File nodeunit = new File(binary);
+		if ( ! nodeunit.exists() ) {
+			Util.errorMessage("Cant find nodeunit\n" + nodeunit.getAbsolutePath());
+		}
+		
+		
 		cmd.add(binary);
 		cmd.add("--reporter");
 		cmd.add("default");
@@ -76,11 +85,14 @@ public class NodeunitApplicationLaunchConfigurationDelegate extends AbstractAppl
 		//File pwd = getWorkingDirectory(configuration, proj);
 		
 		// Launch bin/nodeunit
+		Process p = exec(cmd.toArray(new String[cmd.size()]) , pwd);
+		p = NodeunitRunner.run(p);
 		newProcess(launch ,
-				exec(cmd.toArray(new String[cmd.size()]) , pwd) ,
+				p ,
 				"nodeunit - " + configuration.getName() , 
 				new HashMap());// TODO environment
 	
+		
 	}
 
 

@@ -1,5 +1,6 @@
 package org.tp23.eclipse.launching;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
 import org.tp23.eclipse.node.preferences.PreferenceConstants;
 
 public class NodeunitApplicationLaunchShortcut implements ILaunchShortcut, org.eclipse.debug.ui.actions.ILaunchable, ILaunchShortcut2 {
@@ -44,6 +46,17 @@ public class NodeunitApplicationLaunchShortcut implements ILaunchShortcut, org.e
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_MAIN_TYPE_NAME, path);
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_PROJECT_NAME, projectName);
 			String nodeunitPath = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.NODEUNIT_PATH);
+			if ( ! new File(nodeunitPath).exists()) {
+				Util.errorMessage(
+						"Nodeunit not found.\n" +
+						"try\n" +
+						"  npm > Create node_modules\n" +
+						"  npm > Install nodeunit\n\n" +
+						"The default location for nodeunit\n" +
+						"can be set in preferences");
+				nodeunitPath = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.NODEUNIT_PATH);
+			}
+
 			wc.setAttribute(ApplicationLauncherConstants.ATTR_APP_BINARY, nodeunitPath);
 
 			// CONTEXTLAUNCHING
