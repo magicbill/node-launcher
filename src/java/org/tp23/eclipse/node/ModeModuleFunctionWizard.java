@@ -30,18 +30,18 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
  * @author teknopaul
  *
  */
-public class HelloworldWizard extends BasicNewResourceWizard {
+public class ModeModuleFunctionWizard extends BasicNewResourceWizard {
 	
 	WizardNewFileCreationPage mainPage;
 
-	public HelloworldWizard() {
+	public ModeModuleFunctionWizard() {
 	}
 	
 	public void addPages() {
 		super.addPages();
-		mainPage = new WizardNewFileCreationPage("newHelloworldPage", getSelection());//$NON-NLS-1$
-		mainPage.setTitle("New hello world server");
-		mainPage.setDescription("Create a webserver application that returns hello world");
+		mainPage = new WizardNewFileCreationPage("newModuleFunctionPage", getSelection());//$NON-NLS-1$
+		mainPage.setTitle("New module that exports functions");
+		mainPage.setDescription("Create a mnode module that exports functions");
 		addPage(mainPage);
 	}
 
@@ -64,7 +64,7 @@ public class HelloworldWizard extends BasicNewResourceWizard {
         	return false;
         }
         try {
-			file.setContents(HelloworldWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-helloworld.js") , 0, null);
+			file.setContents(ModeModuleFunctionWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-module-function.js") , 0, null);
 		} catch (CoreException e) {
 			return false;
 		}

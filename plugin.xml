@@ -258,6 +258,26 @@
       </wizard>
       <wizard
             category="org.tp23.eclipse.node.category"
+            class="org.tp23.eclipse.node.NodeModuleOOWizard"
+            icon="icons/node16.png"
+            id="org.tp23.eclipse.node.NodeModuleOOWizard"
+            name="OO Module">
+         <description>
+            Create a new object oriented module.
+         </description>
+      </wizard>
+      <wizard
+            category="org.tp23.eclipse.node.category"
+            class="org.tp23.eclipse.node.NodeModuleFunctionWizard"
+            icon="icons/node16.png"
+            id="org.tp23.eclipse.node.NodeModuleFunctionWizard"
+            name="Node Module">
+         <description>
+            Create a new node module that exports functions.
+         </description>
+      </wizard>
+      <wizard
+            category="org.tp23.eclipse.node.category"
             class="org.tp23.eclipse.node.HelloworldWizard"
             icon="icons/node16.png"
             id="org.tp23.eclipse.nodeunit.HelloworldWizard"
@@ -267,5 +287,27 @@
          </description>
       </wizard>
    </extension>
+
+   <extension point="org.eclipse.wst.jsdt.ui.JsGlobalScopeContainerPage">
+  	  <JsGlobalScopeContainerPage
+            name="Node.js Library"
+            class="org.tp23.eclipse.node.assist.NodeLibraryWizardPage"
+            id="org.tp23.eclipse.node.assist.node">
+      </JsGlobalScopeContainerPage>
+   </extension>
+   <extension
+      point="org.eclipse.wst.jsdt.core.JsGlobalScopeContainerInitializer">
+      <JsGlobalScopeContainerInitializer
+            class="org.tp23.eclipse.node.assist.NodeLibInitializer"
+            id="org.tp23.eclipse.node.assist.NodeLibrary">
+      </JsGlobalScopeContainerInitializer>
+   </extension>
       
+   <extension point="org.eclipse.wst.jsdt.ui.JsGlobalScopeUIInitializer">
+     <JsGlobalScopeUIInitializer
+     	id="org.tp23.eclipse.node.assist.NodeUiLibrary"
+     	class="org.tp23.eclipse.node.assist.NodeUiInitializer">
+     </JsGlobalScopeUIInitializer>
+   </extension>
+   
 </plugin>

@@ -26,22 +26,23 @@ import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
 /**
- * Wizard to create a new hello world server.
+ * Wizard to create a new Object Oriented Module.
+ * 
  * @author teknopaul
  *
  */
-public class HelloworldWizard extends BasicNewResourceWizard {
+public class NodeModuleOOWizard extends BasicNewResourceWizard {
 	
 	WizardNewFileCreationPage mainPage;
 
-	public HelloworldWizard() {
+	public NodeModuleOOWizard() {
 	}
 	
 	public void addPages() {
 		super.addPages();
-		mainPage = new WizardNewFileCreationPage("newHelloworldPage", getSelection());//$NON-NLS-1$
-		mainPage.setTitle("New hello world server");
-		mainPage.setDescription("Create a webserver application that returns hello world");
+		mainPage = new WizardNewFileCreationPage("newNodeModuleOOPage", getSelection());//$NON-NLS-1$
+		mainPage.setTitle("New oject oriented modeul");
+		mainPage.setDescription("Create a node module that can have multiple instances creted");
 		addPage(mainPage);
 	}
 
@@ -64,7 +65,7 @@ public class HelloworldWizard extends BasicNewResourceWizard {
         	return false;
         }
         try {
-			file.setContents(HelloworldWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-helloworld.js") , 0, null);
+			file.setContents(NodeModuleOOWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-module-oo.js") , 0, null);
 		} catch (CoreException e) {
 			return false;
 		}
