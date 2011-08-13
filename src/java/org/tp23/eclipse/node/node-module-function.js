@@ -2,15 +2,7 @@ var util = require('util');
 
 /**
  * 
- * @constructor
  */
-var MyModule = function() {
-	var attr = "Hello World";
+module.exports.operation = function() {
+	console.log("Hello World")
 };
-
-MyModule.prototype.operation = function() {
-	console.log(this.attr);
-};
-
-
-module.exports = MyModule;

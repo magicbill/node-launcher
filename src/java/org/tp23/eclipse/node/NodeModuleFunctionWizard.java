@@ -30,11 +30,11 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
  * @author teknopaul
  *
  */
-public class ModeModuleFunctionWizard extends BasicNewResourceWizard {
+public class NodeModuleFunctionWizard extends BasicNewResourceWizard {
 	
 	WizardNewFileCreationPage mainPage;
 
-	public ModeModuleFunctionWizard() {
+	public NodeModuleFunctionWizard() {
 	}
 	
 	public void addPages() {
@@ -64,7 +64,7 @@ public class ModeModuleFunctionWizard extends BasicNewResourceWizard {
         	return false;
         }
         try {
-			file.setContents(ModeModuleFunctionWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-module-function.js") , 0, null);
+			file.setContents(NodeModuleFunctionWizard.class.getResourceAsStream("/org/tp23/eclipse/node/node-module-function.js") , 0, null);
 		} catch (CoreException e) {
 			return false;
 		}

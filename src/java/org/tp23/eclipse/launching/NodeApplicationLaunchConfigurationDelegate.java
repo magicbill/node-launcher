@@ -37,7 +37,7 @@ import org.eclipse.jdt.launching.SocketUtil;
 
 /**
  * Launches the application, takes parameters form the config and calls eclipse specific
- * exec funtions so that when executed the inbuild console works.
+ * exec functions so that when executed the in-built console works.
  * 
  * @author teknopaul
  *
