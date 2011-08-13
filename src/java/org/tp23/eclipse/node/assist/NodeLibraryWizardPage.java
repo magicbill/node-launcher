@@ -47,7 +47,7 @@ public class NodeLibraryWizardPage extends NewElementWizardPage implements IJsGl
 		composite.setFont(parent.getFont());
 		DialogField field = new DialogField();
 
-		field.setLabelText(NodeMessages.NodeLibraryWizardPage_FirefoxLibraryAdded);
+		field.setLabelText(NodeMessages.NodeLibraryWizardPage_NodeLibraryAdded);
 		LayoutUtil.doDefaultLayout(composite, new DialogField[]{field}, false, SWT.DEFAULT, SWT.DEFAULT);
 		Dialog.applyDialogFont(composite);
 		setControl(composite);

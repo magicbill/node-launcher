@@ -16,7 +16,7 @@ public class NodeMessages extends NLS {
 	}
 	
 	public static String NodeLibraryWizardPage_title;
-	public static String NodeLibraryWizardPage_FirefoxLibraryAdded;
+	public static String NodeLibraryWizardPage_NodeLibraryAdded;
 	public static String NodeLibraryWizardPage_BrowserSupport;
 	
 	static {
