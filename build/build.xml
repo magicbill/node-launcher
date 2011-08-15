@@ -61,9 +61,9 @@ This is a build_farm LIB build
 	
 
 	<target name="jar">
-		<delete file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.3.jar"/>
+		<delete file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.4.jar"/>
 		<jar
-			destfile="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.3.jar"
+			destfile="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.4.jar"
 			manifest="${master.project.dir}/META-INF/MANIFEST.MF">
 			<fileset dir="${prepare.dir}/node-launcher/classes">
 				<include name="**/*.class"/>
@@ -78,7 +78,7 @@ This is a build_farm LIB build
 	<target name="copy">
 		<echo message="Publishing to ${publish.dir}/binaries/node-launcher"/>
 		<mkdir dir="${publish.dir}/binaries/node-launcher" />
-		<copy file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.3.jar"
+		<copy file="${prepare.dir}/node-launcher/org.tp23.eclipse.launcher.node_1.0.4.jar"
 			todir="${publish.dir}/binaries/node-launcher"/>
 	</target>
 
