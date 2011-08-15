@@ -72,7 +72,7 @@ public class NodeApplicationLaunchConfigurationDelegate extends AbstractApplicat
 		}
 		
 		// get real paths from eclispe virtual paths
-		 IProject proj = getProject(configuration);
+		IProject proj = getProject(configuration);
 
 		// get the absolute path of the JavaScript file to run
 		String main = getAbsoluteMainPath(configuration, proj);
@@ -80,6 +80,9 @@ public class NodeApplicationLaunchConfigurationDelegate extends AbstractApplicat
 		
 		// get the absolute path of the pwd to use
 		File pwd = getWorkingDirectory(configuration, proj);
+		
+		System.err.println("binary= " + binary);
+		System.err.println("main= " + main);
 		
 		// Launch node.js
 		newProcess(launch ,

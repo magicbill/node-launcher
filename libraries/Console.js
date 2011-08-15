@@ -32,10 +32,10 @@ Console.prototype.warn=function(message){};
 Console.prototype.error=function(message){};
 /**
 * Uses util.inspect on obj and prints resulting string to stderr.
-* @param {Object} message
+* @param {Object} obj
 * @memberOf Console
 */
-Console.prototype.dir=function(message){};
+Console.prototype.dir=function(obj){};
 /**
 * Mark a time.
 * @param {Object} label

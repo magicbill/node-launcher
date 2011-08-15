@@ -28,6 +28,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
 
 public class Util {
 
@@ -110,5 +114,45 @@ public class Util {
 		return true;
 	}
 	
+	public static MessageConsole getConsole(String name) {
+		
+		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+		IConsole[] existing = manager.getConsoles();
+		for(IConsole exists : existing) {
+			if (exists instanceof MessageConsole && exists.getName().equals(name)) {
+				MessageConsole console = (MessageConsole)exists;
+				console.clearConsole();
+				return console;
+			}
+		}
+		
+		// not found
+		// TODO does nto seem possible to get a handle on creating buttons to 
+		// be able to close the console
+		MessageConsole console = new MessageConsole(name, null);
+		console.activate();
+		manager.addConsoles(new IConsole[]{ console });
+		return console;
+	}
+
 	
+	public static void removeConsole(String name) {
+		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+		IConsole[] existing = manager.getConsoles();
+		for(IConsole exists : existing) {
+			if (exists instanceof MessageConsole && exists.getName().equals(name)) {
+				manager.removeConsoles(new IConsole[]{exists});
+			}
+		}
+	}
+
+	public static void removeNpmConsoles() {
+		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+		IConsole[] existing = manager.getConsoles();
+		for(IConsole exists : existing) {
+			if (exists instanceof MessageConsole && exists.getName().startsWith("npm ")) {
+				manager.removeConsoles(new IConsole[]{exists});
+			}
+		}
+	}
 }

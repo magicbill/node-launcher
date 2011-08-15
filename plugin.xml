@@ -2,6 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
 
+	<!-- 
+		Node Application & Nodeunit Application launch configuration types 
+	-->
 	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
 	    <launchConfigurationType
 	        name="Node Application"
@@ -17,6 +20,9 @@
 	    </launchConfigurationType>
 	</extension>
 	
+	<!-- 
+		Icons for launch config types 
+	-->
 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
 	    <launchConfigurationTypeImage
 	        icon="icons/node16.png"
@@ -30,6 +36,9 @@
 	    </launchConfigurationTypeImage>
 	</extension>
 
+	<!-- 
+		UI pages for launch config types, e.g set location of node binary 
+	-->
 	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
 	    <launchConfigurationTabGroup
 	        type="org.tp23.eclipse.launching.nodeApplication"
@@ -43,6 +52,9 @@
 	    </launchConfigurationTabGroup>
 	</extension>
 
+	<!-- 
+		Launch from right mouse clicks
+	-->
 	<extension point="org.eclipse.debug.ui.launchShortcuts">
 	    <shortcut
 	        id="org.tp23.eclipse.launching.nodeApplicationShortcut"
@@ -107,8 +119,11 @@
 	       </description>
  
 	    </shortcut>
-	    
 	</extension>
+	
+	<!-- 
+		TODO these just return true indicating all types can be launched as node.
+	-->
 	<extension point="org.eclipse.core.expressions.propertyTesters">
 		<propertyTester
 			class="org.tp23.eclipse.launching.LaunchablePropertyTester"
@@ -116,97 +131,110 @@
 			properties="LaunchablePropertyTester" type="java.lang.Object" />
 	</extension>
 	
-	 <extension
-	       point="org.eclipse.ui.preferencePages">
+	<!-- 
+		Configuration in the menu Window > Preferences
+	-->
+	<extension point="org.eclipse.ui.preferencePages">
 	    <page
 	          class="org.tp23.eclipse.node.preferences.NodePreferencePage"
 	          id="org.tp23.eclipse.node.preferences.NodePreferencePage"
 	          name="Node.js">
 	    </page>
-	 </extension>
-	 <extension
-	       point="org.eclipse.core.runtime.preferences">
+	</extension>
+	<extension point="org.eclipse.core.runtime.preferences">
 	    <initializer
 	          class="org.tp23.eclipse.node.preferences.PreferenceInitializer">
 	    </initializer>
-	 </extension>
-	 <extension
-	       point="org.eclipse.ui.preferencePages">
-	 </extension>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+	</extension>
 
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
+	<!--
+		Actions currnetly the node package manager menu
+	-->
+	<extension point="org.eclipse.ui.actionSets">
+    	<actionSet
             label="NPM Actions"
             visible="true"
             id="org.tp23.eclipse.npm.actionSet">
-         <menu
-               label="&amp;npm"
-               id="npmMenu">
-            <separator
-                  name="npmGroup">
-            </separator>
-         </menu>
-         <!-- Actions seem to load in reverse order ?-->
-         <action
-               label="&amp;Install Dom"
-               icon="icons/npm16.png"
-               class="org.tp23.eclipse.npm.InstallDomAction"
-               tooltip="npm install dom-js"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.InstallDomAction">
-         </action>
-         <action
-               label="&amp;Install Sax"
-               icon="icons/npm16.png"
-               class="org.tp23.eclipse.npm.InstallSaxAction"
-               tooltip="npm install sax"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.InstallSaxAction">
-         </action>
-         <action
-               label="&amp;Install Nodeunit"
-               icon="icons/npm16.png"
-               class="org.tp23.eclipse.npm.InstallNodeunitAction"
-               tooltip="npm install sax"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.InstallNodeunitAction">
-         </action>
-         <action
-               label="&amp;Install ..."
-               icon="icons/npm16.png"
-               class="org.tp23.eclipse.npm.InstallAction"
-               tooltip="npm install [package]"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.InstallAction">
-         </action>
-         <action
-               label="&amp;Create modules project"
-               icon="icons/npm16.png"
-               class="org.tp23.eclipse.npm.CreateModulesProjectAction"
-               tooltip="Create node_modules project for workspace local npm packages"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.CreateModulesProjectAction">
-         </action>
-         <!--action
-               label="&amp;Search"
-               icon="icons/npm.png"
-               class="org.tp23.eclipse.npm.SearchAction"
-               tooltip="ls npm packages"
-               menubarPath="npmMenu/npmGroup"
-               toolbarPath="npmGroup"
-               id="org.tp23.eclipse.npm.SearchAction">
-         </action-->
+			<menu
+			       label="&amp;npm"
+			       id="npmMenu">
+			    <separator
+			          name="npmGroup">
+			    </separator>
+			</menu>
+			<!-- Actions seem to load in reverse order for some reason ?-->
+			<action
+			       label="&amp;Remove npm consoles"
+			       class="org.tp23.eclipse.npm.RemoveConsolesAction"
+			       tooltip="removes ls and search consoles"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.RemoveConsolesAction">
+			</action>
+			<action
+			       label="&amp;Install Dom"
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.InstallDomAction"
+			       tooltip="npm install dom-js"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.InstallDomAction">
+			</action>
+			<action
+			       label="&amp;Install Sax"
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.InstallSaxAction"
+			       tooltip="npm install sax"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.InstallSaxAction">
+			</action>
+			<action
+			       label="&amp;Install Nodeunit"
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.InstallNodeunitAction"
+			       tooltip="npm install sax"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.InstallNodeunitAction">
+			</action>
+			<action
+			       label="&amp;ls"
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.LsAction"
+			       tooltip="ls npm packages"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.LsAction">
+			</action>
+			<action
+			       label="&amp;Install ..."
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.InstallAction"
+			       tooltip="npm install [package]"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.InstallAction">
+			</action>
+			<action
+			       label="&amp;Search ..."
+			       icon="icons/npm16.png"
+			       class="org.tp23.eclipse.npm.SearchAction"
+			       tooltip="ls npm packages"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.SearchAction">
+			</action>
+			<action
+			       label="&amp;Create modules project"
+			       icon="icons/node16.png"
+			       class="org.tp23.eclipse.npm.CreateModulesProjectAction"
+			       tooltip="Create node_modules project for workspace local npm packages"
+			       menubarPath="npmMenu/npmGroup"
+			       id="org.tp23.eclipse.npm.CreateModulesProjectAction">
+			</action>
 
-
-      </actionSet>
-   </extension>
+		</actionSet>
+	</extension>
    
+   <!-- 
+   	 hmm totally untested npm module installer
+   -->
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution

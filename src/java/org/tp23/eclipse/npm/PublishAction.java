@@ -34,8 +34,7 @@ public class PublishAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		org.eclipse.ui.internal.ObjectPluginAction impl = (org.eclipse.ui.internal.ObjectPluginAction)action; 
-		System.out.println(action);
-		System.err.println(action);
+
 		StructuredSelection ss = (StructuredSelection)impl.getSelection();
 		IProject p = (IProject)ss.getFirstElement();
 		
@@ -44,13 +43,6 @@ public class PublishAction implements IObjectActionDelegate {
 		} catch (CoreException e) {
 			Util.errorMessage("Publish failed");
 		}
-		// TODO where do we get the selected projet from
-		// 
-		/*
-		MessageDialog.openInformation(
-			shell,
-			"Nodeunit",
-			"publish was executed.");*/
 	}
 
 	/**

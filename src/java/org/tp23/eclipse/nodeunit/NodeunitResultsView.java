@@ -37,9 +37,15 @@ import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.PageBookView;
 import org.eclipse.ui.part.ViewPart;
 
+/**
+ * The View for npm results, just a list right now.
+ * 
+ * @author teknopaul
+ *
+ */
 public class NodeunitResultsView extends PageBookView implements IPage {// extends ViewPart {
 	
-	public static final String ID = "org.tp23.eclipse.nodeunit.view";
+	public static final String ID = "org.tp23.eclipse.npm.view";
 
 	private TableViewer viewer;
 
