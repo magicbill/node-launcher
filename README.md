@@ -8,8 +8,12 @@ By combing EclipseJS , goggle Developer Tools and a couple of simple pugins we g
 * code completion
 * launching node
 * debuggingg node
+* workspace setup for npm managed modules
 * fetching deps via npm
-* launching nodeunit tests
+* npm search
+* launching nodeunit tests 
+* displaying nodeunit test results
+* code templates for creating modules
 
 If you code in vi you can safely ignore this project
 
